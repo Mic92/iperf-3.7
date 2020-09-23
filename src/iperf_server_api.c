@@ -181,6 +181,8 @@ iperf_handle_message_server(struct iperf_test *test)
             SLIST_FOREACH(sp, &test->streams, streams) {
                 FD_CLR(sp->socket, &test->read_set);
                 FD_CLR(sp->socket, &test->write_set);
+                SSL_CTX_free(sp->ssl_ctx);
+                SSL_free(sp->ssl);
                 close(sp->socket);
             }
             test->reporter_callback(test);

@@ -27,11 +27,15 @@
 #ifndef __NET_H
 #define __NET_H
 
+#include <openssl/ssl.h>
+
 int timeout_connect(int s, const struct sockaddr *name, socklen_t namelen, int timeout);
 int netdial(int domain, int proto, char *local, int local_port, char *server, int port, int timeout);
 int netannounce(int domain, int proto, char *local, int port);
 int Nread(int fd, char *buf, size_t count, int prot);
+int ssl_nread(SSL* ssl, char *buf, size_t count, int prot);
 int Nwrite(int fd, const char *buf, size_t count, int prot) /* __attribute__((hot)) */;
+int ssl_nwrite(SSL* ssl, const char *buf, size_t count, int prot) /* __attribute__((hot)) */;
 int has_sendfile(void);
 int Nsendfile(int fromfd, int tofd, const char *buf, size_t count) /* __attribute__((hot)) */;
 int setnonblocking(int fd, int nonblocking);

@@ -210,6 +210,8 @@ struct iperf_stream
     SLIST_ENTRY(iperf_stream) streams;
 
     void     *data;
+    SSL_CTX   *ssl_ctx;
+    SSL       *ssl;
 };
 
 struct protocol {

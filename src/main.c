@@ -42,6 +42,8 @@
 #include <netinet/in.h>
 #include <arpa/inet.h>
 #include <netdb.h>
+#include <openssl/ssl.h>
+#include <openssl/err.h>
 
 #include "iperf.h"
 #include "iperf_api.h"
@@ -51,6 +53,18 @@
 
 
 static int run(struct iperf_test *test);
+
+void init_openssl()
+{
+    SSL_load_error_strings();
+    OpenSSL_add_ssl_algorithms();
+}
+
+
+void cleanup_openssl()
+{
+    EVP_cleanup();
+}
 
 
 /**************************************************************************/
@@ -143,6 +157,8 @@ int main(int argc, char** argv) {
     tests = calloc(sizeof(*tests), server_num);
     thread_ids = calloc(sizeof(*thread_ids), server_num);
 
+    init_openssl();
+
     // XXX: Setting the process affinity requires root on most systems.
     //      Is this a feature we really need?
 #ifdef TEST_PROC_AFFINITY
@@ -206,6 +222,7 @@ int main(int argc, char** argv) {
         pthread_join(thread_ids[i], NULL);
         iperf_free_test(tests[i]);
     }
+    cleanup_openssl();
 }
 
 

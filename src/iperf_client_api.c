@@ -427,6 +427,8 @@ iperf_client_end(struct iperf_test *test)
 
     /* Close all stream sockets */
     SLIST_FOREACH(sp, &test->streams, streams) {
+        SSL_CTX_free(sp->ssl_ctx);
+        SSL_free(sp->ssl);
         close(sp->socket);
     }
 
