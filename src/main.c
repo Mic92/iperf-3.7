@@ -125,6 +125,19 @@ int main(int argc, char** argv) {
         fprintf(stderr, "USAGE: iperf server_num");
         exit(1);
     }
+    if (strcmp(argv[1], "client") == 0) {
+        argv[1] = "iperf";
+        char new_argc = argc - 1;
+        char **new_argv = calloc(sizeof(*argv), argc);
+        new_argv[0] = argv[0];
+        if (new_argc > 1) {
+            memcpy(&new_argv[1], &argv[2], sizeof(*new_argv) * new_argc);
+        }
+        int r = old_main(new_argc, new_argv);
+        free(new_argv);
+        return r;
+    }
+
     int server_num = atoi(argv[1]);
     printf("Launch %d servers\n", server_num);
     tests = calloc(sizeof(*tests), server_num);
