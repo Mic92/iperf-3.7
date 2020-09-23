@@ -172,7 +172,7 @@ int main(int argc, char** argv) {
         iperf_defaults(tests[i]); /* sets defaults */
 
         optind = 0;
-        int instance_argc = 5;
+        int instance_argc = 4;
         char port[6];
         sprintf(port, "%d", 5201 + i);
         char *instance_argv[] = { "iperf", "-s", "-p", port, NULL};
