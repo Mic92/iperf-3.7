@@ -7459,8 +7459,8 @@ func_mode_link ()
     else
       shlib_search_path=
     fi
-    eval sys_lib_search_path=\"$sys_lib_search_path_spec\"
-    eval sys_lib_dlsearch_path=\"$sys_lib_dlsearch_path_spec\"
+    
+    
 
     # Definition is injected by LT_CONFIG during libtool generation.
     func_munge_path_list sys_lib_dlsearch_path "$LT_SYS_LIBRARY_PATH"
