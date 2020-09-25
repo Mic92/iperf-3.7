@@ -47,7 +47,7 @@ libiperf_la_SOURCES     = \
 
 # Specify the sources and various flags for the iperf binary
 iperf3_SOURCES          = main.c
-iperf3_CFLAGS           = -g
+iperf3_CFLAGS           = -g -pthread
 iperf3_LDADD            = libiperf.la
 iperf3_LDFLAGS          = -g
 
